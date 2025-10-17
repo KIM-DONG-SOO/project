@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="career">
+    
+    <resultMap type="com.spring.recruit.vo.CareerVO" id="careerVO">
+    	<result property="seq" 	column="SEQ"/>
+    	<result property="carSeq" 	column="CAR_SEQ"/>
+		<result property="startPeriod" 	column="START_PERIOD"/>
+		<result property="endPeriod" 	column="END_PERIOD"/>
+		<result property="compName" 		column="COMP_NAME"/>
+		<result property="task" 			column="TASK"/>
+		<result property="location" 	column="LOCATION"/>
+		
+    </resultMap>
+    
+    
+    <select id="selectCarList" parameterType="com.spring.recruit.vo.CareerVO" resultMap="careerVO">
+        SELECT 
+			CAR_SEQ
+			,SEQ
+        	,START_PERIOD
+        	,END_PERIOD
+        	,COMP_NAME
+        	,TASK
+        	,LOCATION
+		FROM 
+			CAREER
+		WHERE
+			SEQ = #{seq}
+    </select>
+    
+    
+    <insert id="insertCareer" parameterType="com.spring.recruit.vo.CareerVO" >
+    	<selectKey resultType="string" keyProperty="carSeq" order="BEFORE">
+    		SELECT TO_CHAR(CAR_SEQ.NEXTVAL) FROM DUAL
+    	</selectKey>
+        INSERT INTO
+        CAREER
+        	(
+			CAR_SEQ
+			,SEQ
+        	,START_PERIOD
+        	,END_PERIOD
+        	,COMP_NAME
+        	,TASK
+        	,LOCATION
+        	) 
+		VALUES 
+			(
+			#{carSeq}
+			,#{seq}
+			,#{startPeriod}
+			,#{endPeriod}
+			,#{compName}
+			,#{task}
+			,#{location}
+			)
+    </insert>
+    
+    
+    <update id="updateCareer" parameterType="com.spring.recruit.vo.CareerVO" >
+        UPDATE CAREER
+        SET
+			CAR_SEQ = #{carSeq}
+			,SEQ = #{seq}
+        	,START_PERIOD = #{startPeriod}
+        	,END_PERIOD = #{endPeriod}
+        	,COMP_NAME = #{compName}
+        	,TASK = #{task}
+        	,LOCATION = #{location}
+		WHERE 
+			CAR_SEQ = #{carSeq}
+    </update>
+    
+    
+    
+    
+    
+</mapper>

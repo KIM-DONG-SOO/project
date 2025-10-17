@@ -1,0 +1,16 @@
+# IDE
+.metadata/
+*.idea/
+*.vscode/
+
+# 로그
+*.log
+
+# 임시 파일
+*.tmp
+*.swp
+
+# 빌드 산출물
+bin/
+target/
+build/

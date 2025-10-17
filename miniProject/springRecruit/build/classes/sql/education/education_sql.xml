@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="education">
+    
+    <resultMap type="com.spring.recruit.vo.EducationVO" id="educationVO">
+    	<result property="seq" 	column="SEQ"/>
+    	<result property="eduSeq" 	column="EDU_SEQ"/>
+    	<result property="startPeriod" 	column="START_PERIOD"/>
+		<result property="endPeriod" 	column="END_PERIOD"/>
+		<result property="division" 	column="DIVISION"/>
+		<result property="schoolName" 	column="SCHOOL_NAME"/>
+		<result property="location" 	column="LOCATION"/>
+		<result property="major" 		column="MAJOR"/>
+		<result property="grade" 		column="GRADE"/>
+		
+    </resultMap>
+    
+    
+    <select id="selectEduList" parameterType="com.spring.recruit.vo.EducationVO" resultMap="educationVO">
+        SELECT 
+			EDU_SEQ
+			,SEQ
+			,START_PERIOD
+        	,END_PERIOD
+        	,DIVISION
+        	,SCHOOL_NAME
+        	,LOCATION
+        	,MAJOR
+        	,GRADE
+		FROM 
+			EDUCATION
+		WHERE
+			SEQ = #{seq}
+    </select>
+    
+    
+    <insert id="insertEducation" parameterType="com.spring.recruit.vo.EducationVO" >
+    	<selectKey resultType="string" keyProperty="eduSeq" order="BEFORE">
+    		SELECT TO_CHAR(EDU_SEQ.NEXTVAL) FROM DUAL
+    	</selectKey>
+        INSERT INTO
+        EDUCATION
+        	(
+			EDU_SEQ
+			,SEQ
+			,START_PERIOD
+        	,END_PERIOD
+        	,DIVISION
+        	,SCHOOL_NAME
+        	,LOCATION
+        	,MAJOR
+        	,GRADE
+        	) 
+		VALUES 
+			(
+			#{eduSeq}
+			,#{seq}
+			,#{startPeriod}
+			,#{endPeriod}
+			,#{division}
+			,#{schoolName}
+			,#{location}
+			,#{major}
+			,#{grade}
+			)
+    </insert>
+    
+    
+    <update id="updateEducation" parameterType="com.spring.recruit.vo.EducationVO" >
+        UPDATE EDUCATION
+        SET
+			EDU_SEQ = #{eduSeq}
+			,SEQ = #{seq}
+			,START_PERIOD = #{startPeriod}
+        	,END_PERIOD = #{endPeriod}
+        	,DIVISION = #{division}
+        	,SCHOOL_NAME = #{schoolName}
+        	,LOCATION = #{location}
+        	,MAJOR = #{major}
+        	,GRADE = #{grade}
+		WHERE 
+			EDU_SEQ = #{eduSeq}
+    </update>
+    
+    
+    
+    
+</mapper>
