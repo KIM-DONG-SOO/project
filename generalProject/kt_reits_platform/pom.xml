@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>kt_reits_platform</groupId>
+  <artifactId>kt_reits_platform</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>kt_reits_platform Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <dependencies>
+  
+ 	 <!--DispatcherServlet**을 통한 요청 처리.
+	  	- @Controller, @RequestMapping 같은 어노테이션 사용 가능.
+		- 요청 데이터를 객체로 변환하거나 응답을 처리하는 로직 포함-->
+  	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>5.3.30</version> 
+	</dependency>
+	
+    <!--Java 웹 애플리케이션의 기반 표준을 제공. WAS(Web Application Server, 예: Tomcat)와 웹 애플리케이션이 통신하기 위한 규약을 정의-->
+	<!--HttpServletRequest, HttpServletResponse, Servlet, Filter 등 웹 요청과 응답을 처리하는 데 필요한 모든 인터페이스를 제공-->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version> 
+        <scope>provided</scope>
+    </dependency>
+
+	<!--JSP 파일에서 자바 코드를 직접 사용하지 않고, <c:forEach>, <c:if> 같은 표준화된 태그를 사용-->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+    </dependency>
+  
+  	<!--클래스나 메서드 단위로 코드를 독립적으로 실행하여, 개발자가 의도한 대로 동작하는지 검증.
+  		<scope>test</scope>로 설정되어 있기 때문에 JUnit 라이브러리가 테스트 컴파일 및 실행 시에만 필요하며,
+  			실제 웹 애플리케이션을 배포(WAR 파일로 만들 때) 할 때는 제외된다는 의미-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    
+    
+  </dependencies>
+  
+  <build>
+    <finalName>kt_reits_platform</finalName>
+  </build>
+</project>
