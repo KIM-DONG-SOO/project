@@ -1,6 +1,11 @@
 package com.example.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.example.dto.PropertyDTO;
 
 /**
  * 매물 관련 DB 작업 인터페이스
