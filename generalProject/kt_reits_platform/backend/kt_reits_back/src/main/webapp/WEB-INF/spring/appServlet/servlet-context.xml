@@ -13,13 +13,31 @@
     <!-- @Controller, @Service 등의 어노테이션이 붙은 클래스들을 찾아 빈(Bean)으로 등록.
     	 웹 요청을 처리할 컨트롤러를 Spring이 인식하게 함 -->
     <context:component-scan base-package="com.example.controller" />
-	<!-- MVC 활성화 : Spring MVC의 고급 기능들(예: @RequestMapping 처리, 데이터 형식 변환 등)을 활성화 -->
+    
+    <!-- Interceptor 스캔 -->
+    <context:component-scan base-package="com.example.interceptor" />
+    
+	<!-- MVC 활성화 : Spring MVC의 고급 기능들(예: @RequestMapping 처리, JSON 자동 변환 등)을 활성화 -->
     <mvc:annotation-driven />
+    
+    <!-- 정적 리소스 처리 (CSS, JS, 이미지 등) -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 	
+	<!-- JSP ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    
+    <!-- 권한 체크 Interceptor 등록 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- /api/** 경로에만 적용 (로그인 API는 제외) -->
+            <mvc:mapping path="/api/**" />
+            <mvc:exclude-mapping path="/api/auth/**" />
+            <bean class="com.example.interceptor.AuthInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
     
     
     

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.dao.PropertyDAO">
+
+    <!-- resultMap: PropertyDTO와 매핑 -->
+    <resultMap id="propertyResultMap" type="com.example.dto.PropertyDTO">
+        <id property="propertyId" column="PROPERTY_ID" />
+        <result property="title" column="TITLE" />
+        <result property="location" column="LOCATION" />
+        <result property="latitude" column="LATITUDE" />
+        <result property="longitude" column="LONGITUDE" />
+        <result property="price" column="PRICE" />
+        <result property="status" column="STATUS" />
+        <result property="managerId" column="MANAGER_ID" />
+        <result property="managerName" column="MANAGER_NAME" />
+        <result property="regDate" column="REG_DATE" />
+    </resultMap>
+
+    <!-- 전체 매물 목록 (담당자 이름 JOIN) -->
+    <select id="selectAllProperties" resultMap="propertyResultMap">
+        SELECT 
+            p.*, 
+            u.USER_NAME AS MANAGER_NAME
+        FROM PROPERTY_TB p
+        LEFT JOIN USER_TB u ON p.MANAGER_ID = u.USER_ID
+        ORDER BY p.REG_DATE DESC
+    </select>
+
+    <!-- 매물 상세 조회 -->
+    <select id="selectPropertyById" resultMap="propertyResultMap">
+        SELECT 
+            p.*, 
+            u.USER_NAME AS MANAGER_NAME
+        FROM PROPERTY_TB p
+        LEFT JOIN USER_TB u ON p.MANAGER_ID = u.USER_ID
+        WHERE p.PROPERTY_ID = #{propertyId}
+    </select>
+
+    <!-- 매물 등록 -->
+    <insert id="insertProperty">
+        INSERT INTO PROPERTY_TB (
+            PROPERTY_ID, TITLE, LOCATION, LATITUDE, LONGITUDE,
+            PRICE, STATUS, MANAGER_ID
+        ) VALUES (
+            SEQ_PROPERTY.NEXTVAL, #{title}, #{location}, #{latitude}, #{longitude},
+            #{price}, NVL(#{status}, 'AVAILABLE'), #{managerId}
+        )
+    </insert>
+
+    <!-- 매물 수정 -->
+    <update id="updateProperty">
+        UPDATE PROPERTY_TB
+        SET TITLE = #{title},
+            LOCATION = #{location},
+            LATITUDE = #{latitude},
+            LONGITUDE = #{longitude},
+            PRICE = #{price},
+            STATUS = #{status},
+            MANAGER_ID = #{managerId}
+        WHERE PROPERTY_ID = #{propertyId}
+    </update>
+
+    <!-- 매물 삭제 -->
+    <delete id="deleteProperty">
+        DELETE FROM PROPERTY_TB
+        WHERE PROPERTY_ID = #{propertyId}
+    </delete>
+
+    <!-- 담당자별 매물 목록 -->
+    <select id="selectPropertiesByManager" resultMap="propertyResultMap">
+        SELECT 
+            p.*, 
+            u.USER_NAME AS MANAGER_NAME
+        FROM PROPERTY_TB p
+        LEFT JOIN USER_TB u ON p.MANAGER_ID = u.USER_ID
+        WHERE p.MANAGER_ID = #{managerId}
+        ORDER BY p.REG_DATE DESC
+    </select>
+
+    <!-- 상태별 매물 개수 -->
+    <select id="countByStatus" resultType="int">
+        SELECT COUNT(*) FROM PROPERTY_TB
+        WHERE STATUS = #{status}
+    </select>
+
+</mapper>
