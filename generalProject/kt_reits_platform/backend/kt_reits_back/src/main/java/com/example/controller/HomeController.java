@@ -12,4 +12,8 @@ public class HomeController {
         // "home"은 View Resolver에 의해 "/WEB-INF/views/home.jsp"로 매핑됩니다.
         return "home";
     }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+    	return "login";
+    }
 }

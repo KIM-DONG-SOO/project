@@ -30,14 +30,14 @@
     </bean>
     
     <!-- 권한 체크 Interceptor 등록 -->
-    <mvc:interceptors>
+    <!-- <mvc:interceptors>
         <mvc:interceptor>
-            <!-- /api/** 경로에만 적용 (로그인 API는 제외) -->
+            /api/** 경로에만 적용 (로그인 API는 제외)
             <mvc:mapping path="/api/**" />
             <mvc:exclude-mapping path="/api/auth/**" />
             <bean class="com.example.interceptor.AuthInterceptor" />
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors> -->
     
     
     
