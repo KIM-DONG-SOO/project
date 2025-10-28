@@ -1,0 +1,3 @@
+-- TestSecurity 프로젝트 시퀀스 생성
+CREATE SEQUENCE SEQ_MEMBER START WITH 1 INCREMENT BY 1;
+
