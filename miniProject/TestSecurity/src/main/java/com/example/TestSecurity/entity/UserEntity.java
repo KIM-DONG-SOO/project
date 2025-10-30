@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user_generator")
-    @SequenceGenerator(name = "seq_user_generator", sequenceName = "SEQ_USER", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
     private String username;
